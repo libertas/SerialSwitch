@@ -1,1 +1,9 @@
-main.d: ../main.c
+main.d: ../main.c ../cmd.h ../eeprom.h ../it.h ../usart.h
+
+../cmd.h:
+
+../eeprom.h:
+
+../it.h:
+
+../usart.h:

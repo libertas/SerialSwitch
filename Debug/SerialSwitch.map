@@ -3,17 +3,17 @@ Archive member included because of file (symbol)
 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_exit.o)
                               /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/crtm16.o (exit)
 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_copy_data.o)
-                              ./main.o (__do_copy_data)
+                              ./cmd.o (__do_copy_data)
 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_clear_bss.o)
-                              ./main.o (__do_clear_bss)
+                              ./cmd.o (__do_clear_bss)
 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(strlen.o)
-                              ./main.o (strlen)
+                              ./cmd.o (strlen)
 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(puts.o)
-                              ./main.o (puts)
+                              ./cmd.o (puts)
 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(sprintf.o)
-                              ./main.o (sprintf)
+                              ./cmd.o (sprintf)
 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(sscanf.o)
-                              ./main.o (sscanf)
+                              ./cmd.o (sscanf)
 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(vfprintf_std.o)
                               /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(sprintf.o) (vfprintf)
 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(vfscanf_std.o)
@@ -46,14 +46,14 @@ Archive member included because of file (symbol)
 Allocating common symbols
 Common symbol       size              file
 
-stackTail           0x2               ./main.o
-dutyH               0x20              ./main.o
-dutyL               0x20              ./main.o
+stackTail           0x2               ./eeprom.o
+dutyH               0x20              ./eeprom.o
+dutyL               0x20              ./eeprom.o
 debugStr            0x64              ./main.o
-buf                 0x65              ./main.o
-m                   0x20              ./main.o
+buf                 0x64              ./cmd.o
+m                   0x20              ./it.o
 __iob               0x6               /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(iob.o)
-status              0x2               ./main.o
+status              0x2               ./eeprom.o
 
 Memory Configuration
 
@@ -70,7 +70,11 @@ user_signatures  0x00850000         0x00000400         rw !x
 Linker script and memory map
 
 LOAD /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/crtm16.o
+LOAD ./cmd.o
+LOAD ./eeprom.o
+LOAD ./it.o
 LOAD ./main.o
+LOAD ./usart.o
 START GROUP
 LOAD /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a
 LOAD /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libm.a
@@ -243,7 +247,11 @@ END GROUP
                 0x0000009a                __vector_16
                 0x0000009a                __vector_18
                 0x0000009a                __vector_20
+ .text          0x0000009e        0x0 ./cmd.o
+ .text          0x0000009e        0x0 ./eeprom.o
+ .text          0x0000009e        0x0 ./it.o
  .text          0x0000009e        0x0 ./main.o
+ .text          0x0000009e        0x0 ./usart.o
  .text          0x0000009e        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_exit.o)
  .text          0x0000009e        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_copy_data.o)
  .text          0x0000009e        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_clear_bss.o)
@@ -267,44 +275,44 @@ END GROUP
  .text          0x0000009e        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_epilogue.o)
                 0x0000009e                . = ALIGN (0x2)
  *(.text.*)
+ .text.runCmd   0x0000009e      0x78e ./cmd.o
+                0x0000009e                runCmd
  .text.writeEEPROM
-                0x0000009e       0x70 ./main.o
-                0x0000009e                writeEEPROM
+                0x0000082c       0x70 ./eeprom.o
+                0x0000082c                writeEEPROM
  .text.readEEPROM
-                0x0000010e       0x56 ./main.o
-                0x0000010e                readEEPROM
- .text.setDuty  0x00000164      0x162 ./main.o
-                0x00000164                setDuty
- .text.sendUSART
-                0x000002c6       0x34 ./main.o
-                0x000002c6                sendUSART
- .text.receiveUSART
-                0x000002fa       0x24 ./main.o
-                0x000002fa                receiveUSART
- .text.print    0x0000031e       0x3c ./main.o
-                0x0000031e                print
- .text.initUSART
-                0x0000035a       0x34 ./main.o
-                0x0000035a                initUSART
- .text.initTimer0
-                0x0000038e       0x32 ./main.o
-                0x0000038e                initTimer0
- .text.initTimer2
-                0x000003c0       0x32 ./main.o
-                0x000003c0                initTimer2
- .text.runCmd   0x000003f2      0x78e ./main.o
-                0x000003f2                runCmd
+                0x0000089c       0x56 ./eeprom.o
+                0x0000089c                readEEPROM
+ .text.setDuty  0x000008f2      0x162 ./eeprom.o
+                0x000008f2                setDuty
  .text.__vector_9
-                0x00000b80      0x1c8 ./main.o
-                0x00000b80                __vector_9
+                0x00000a54      0x1c8 ./it.o
+                0x00000a54                __vector_9
  .text.__vector_4
-                0x00000d48      0x1e6 ./main.o
-                0x00000d48                __vector_4
+                0x00000c1c      0x1e6 ./it.o
+                0x00000c1c                __vector_4
  .text.__vector_11
-                0x00000f2e      0x140 ./main.o
-                0x00000f2e                __vector_11
- .text.main     0x0000106e      0x13e ./main.o
-                0x0000106e                main
+                0x00000e02      0x140 ./it.o
+                0x00000e02                __vector_11
+ .text.initUSART
+                0x00000f42       0x34 ./it.o
+                0x00000f42                initUSART
+ .text.initTimer0
+                0x00000f76       0x32 ./it.o
+                0x00000f76                initTimer0
+ .text.initTimer2
+                0x00000fa8       0x32 ./it.o
+                0x00000fa8                initTimer2
+ .text.main     0x00000fda      0x13e ./main.o
+                0x00000fda                main
+ .text.sendUSART
+                0x00001118       0x34 ./usart.o
+                0x00001118                sendUSART
+ .text.receiveUSART
+                0x0000114c       0x24 ./usart.o
+                0x0000114c                receiveUSART
+ .text.print    0x00001170       0x3c ./usart.o
+                0x00001170                print
  .text.libgcc.mul
                 0x000011ac        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_exit.o)
  .text.libgcc.div
@@ -449,7 +457,11 @@ END GROUP
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/crtm16.o
+ .data          0x00800060        0x0 ./cmd.o
+ .data          0x00800060        0x0 ./eeprom.o
+ .data          0x00800060        0x0 ./it.o
  .data          0x00800060        0x0 ./main.o
+ .data          0x00800060        0x0 ./usart.o
  .data          0x00800060        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_exit.o)
  .data          0x00800060        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_copy_data.o)
  .data          0x00800060        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_clear_bss.o)
@@ -472,9 +484,10 @@ END GROUP
  .data          0x00800060        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_prologue.o)
  .data          0x00800060        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_epilogue.o)
  *(.data*)
- .data.p.1953   0x00800060        0x2 ./main.o
+ .data.p.1492   0x00800060        0x2 ./it.o
  *(.rodata)
- .rodata        0x00800062       0x9d ./main.o
+ .rodata        0x00800062       0x79 ./cmd.o
+ .rodata        0x008000db       0x24 ./it.o
  *(.rodata*)
  *(.gnu.linkonce.d*)
                 0x00800100                . = ALIGN (0x2)
@@ -482,11 +495,15 @@ END GROUP
                 0x00800100                _edata = .
                 0x00800100                PROVIDE (__data_end, .)
 
-.bss            0x00800100      0x13a
+.bss            0x00800100      0x139
                 0x00800100                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x00800100        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/crtm16.o
+ .bss           0x00800100        0x0 ./cmd.o
+ .bss           0x00800100        0x0 ./eeprom.o
+ .bss           0x00800100        0x0 ./it.o
  .bss           0x00800100        0x0 ./main.o
+ .bss           0x00800100        0x0 ./usart.o
  .bss           0x00800100        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_exit.o)
  .bss           0x00800100        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_copy_data.o)
  .bss           0x00800100        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_clear_bss.o)
@@ -509,32 +526,35 @@ END GROUP
  .bss           0x00800100        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_prologue.o)
  .bss           0x00800100        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_epilogue.o)
  *(.bss*)
- .bss.t.1951    0x00800100        0x2 ./main.o
- .bss.seconds.1952
-                0x00800102        0x2 ./main.o
- .bss.t.1964    0x00800104        0x2 ./main.o
- .bss.sec.1965  0x00800106        0x1 ./main.o
+ .bss.t.1490    0x00800100        0x2 ./it.o
+ .bss.seconds.1491
+                0x00800102        0x2 ./it.o
+ .bss.t.1503    0x00800104        0x2 ./it.o
+ .bss.sec.1504  0x00800106        0x1 ./it.o
  *(COMMON)
- COMMON         0x00800107      0x12d ./main.o
-                0x00800107                stackTail
-                0x00800109                dutyH
-                0x00800129                dutyL
-                0x00800149                debugStr
-                0x008001ad                buf
-                0x00800212                m
-                0x00800232                status
- COMMON         0x00800234        0x6 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(iob.o)
-                0x00800234                __iob
-                0x0080023a                PROVIDE (__bss_end, .)
+ COMMON         0x00800107       0x64 ./cmd.o
+                0x00800107                buf
+ COMMON         0x0080016b       0x44 ./eeprom.o
+                0x0080016b                stackTail
+                0x0080016d                dutyH
+                0x0080018d                dutyL
+                0x008001ad                status
+ COMMON         0x008001af       0x20 ./it.o
+                0x008001af                m
+ COMMON         0x008001cf       0x64 ./main.o
+                0x008001cf                debugStr
+ COMMON         0x00800233        0x6 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(iob.o)
+                0x00800233                __iob
+                0x00800239                PROVIDE (__bss_end, .)
                 0x00001e34                __data_load_start = LOADADDR (.data)
                 0x00001ed4                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080023a        0x0
-                0x0080023a                PROVIDE (__noinit_start, .)
+.noinit         0x00800239        0x0
+                0x00800239                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x0080023a                PROVIDE (__noinit_end, .)
-                0x0080023a                _end = .
-                0x0080023a                PROVIDE (__heap_start, .)
+                0x00800239                PROVIDE (__noinit_end, .)
+                0x00800239                _end = .
+                0x00800239                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -555,13 +575,21 @@ END GROUP
 .user_signatures
  *(.user_signatures*)
 
-.stab           0x00000000     0x12e4
+.stab           0x00000000     0x1d7c
  *(.stab)
- .stab          0x00000000     0x12e4 ./main.o
+ .stab          0x00000000      0x96c ./cmd.o
+ .stab          0x0000096c      0x4bc ./eeprom.o
+                                0x684 (size before relaxing)
+ .stab          0x00000e28      0x7b0 ./it.o
+                                0x978 (size before relaxing)
+ .stab          0x000015d8      0x408 ./main.o
+                                0x5d0 (size before relaxing)
+ .stab          0x000019e0      0x39c ./usart.o
+                                0x564 (size before relaxing)
 
-.stabstr        0x00000000      0xee3
+.stabstr        0x00000000      0xfac
  *(.stabstr)
- .stabstr       0x00000000      0xee3 ./main.o
+ .stabstr       0x00000000      0xfac ./cmd.o
 
 .stab.excl
  *(.stab.excl)
@@ -577,8 +605,12 @@ END GROUP
 
 .comment        0x00000000       0x11
  *(.comment)
- .comment       0x00000000       0x11 ./main.o
+ .comment       0x00000000       0x11 ./cmd.o
                                  0x12 (size before relaxing)
+ .comment       0x00000000       0x12 ./eeprom.o
+ .comment       0x00000000       0x12 ./it.o
+ .comment       0x00000000       0x12 ./main.o
+ .comment       0x00000000       0x12 ./usart.o
  .comment       0x00000000       0x12 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(puts.o)
  .comment       0x00000000       0x12 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(sprintf.o)
  .comment       0x00000000       0x12 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/libc.a(sscanf.o)
