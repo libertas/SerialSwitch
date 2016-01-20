@@ -1,4 +1,5 @@
 #include <avr/io.h>
+#include <avr/wdt.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -45,21 +46,24 @@ void runCmd(char code[])
 		runCmd(buf);
 		break;
 	case 'E':		// set eeprom data
-		if (code[2] == 'i')
-			for (i = 0; i < 16; i++)
+		if (code[2] == 'i') {
+			for (i = 0; i < 16; i++) {
+				wdt_reset();
 				writeEEPROM(i, code[1]);
-		else if (code[2] == 'f')
+			}
+		} else if (code[2] == 'f')
 		{
 			if(code[1] == 'a')
 				addr = EEPROM_SIZE;
 			else
 				addr = 16;
-			for (i = 0; i < addr; i++)
+			for (i = 0; i < addr; i++) {
+				wdt_reset();
 				writeEEPROM(i, 0xff);
-		}
-		else if (code[2] == 'r')
+			}
+		} else if (code[2] == 'r') {
 			PORTA = ~readEEPROM(code[1]);
-		else if (code[1] == 'R') {
+		} else if (code[1] == 'R') {
 			if (sscanf(code + 2, "%d", &addr) == 1) {
 				sprintf(buf, "%d.%x\n", addr, readEEPROM(addr));
 				print(buf);
@@ -106,10 +110,15 @@ void runCmd(char code[])
 		}
 		break;
 	case 'R':		// Reboot
+		print("REBOOTING\n");
 		while (1);
 		break;
+	case 'F':		// Print CPU frequency
+		sprintf(buf, "F_CPU: %ld Hz\n", F_CPU);
+		print(buf);
+		break;
 	default:
-		sprintf(buf, "Unrecognised code:%s\n", code);
+		sprintf(buf, "Unrecognized code:%s\n", code);
 		print(buf);
 		break;
 	}

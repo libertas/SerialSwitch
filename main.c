@@ -1,5 +1,5 @@
 // Running on an Atmega 16a
-// 1 MHz
+// 8 MHz
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -19,7 +19,7 @@ int main()
 {
 	uint8_t i;
 
-	wdt_enable(WDTO_30MS);
+	wdt_enable(WDTO_60MS);
 
 	PORTA = 0x00;
 	PORTC = 0x00;

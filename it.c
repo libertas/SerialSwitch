@@ -109,7 +109,7 @@ void initUSART()
 {
 	UCSRA |= (1 << U2X);
 	UBRRH = 0;
-	UBRRL = 12;		// 9600Hz on 1MHz F_CPU
+	UBRRL = 103;		// 9600Hz on 8MHz F_CPU
 	UCSRB = (1 << RXEN) | (1 << TXEN) | (1 << RXCIE);
 	UCSRC = (1 << URSEL) | (3 << UCSZ0);
 }
