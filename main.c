@@ -18,8 +18,6 @@ int main()
 {
 	uint8_t i;
 
-	DDRA = 0xff;
-	DDRC = 0xff;
 	PORTA = 0x00;
 	PORTC = 0x00;
 
@@ -32,6 +30,9 @@ int main()
 		PORTC = PORTC >> 1;
 		PORTC |= ((readEEPROM(i) - '0') & 0x01) << 7;
 	}
+
+	DDRA = 0xff;
+	DDRC = 0xff;
 
 	for (stackTail = EEPROM_SIZE - 1; readEEPROM(stackTail) != 0xff; stackTail--);
 
