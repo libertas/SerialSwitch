@@ -111,6 +111,7 @@ void runCmd(char code[])
 		break;
 	case 'R':		// Reboot
 		print("REBOOTING\n");
+		wdt_enable(WDTO_15MS);
 		while (1);
 		break;
 	case 'F':		// Print CPU frequency
