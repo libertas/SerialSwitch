@@ -1,5 +1,5 @@
 // Running on an Atmega 16a
-// 16 MHz
+// 1 MHz
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
