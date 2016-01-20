@@ -4,6 +4,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include <avr/wdt.h>
 
 #include "cmd.h"
 #include "eeprom.h"
@@ -17,6 +18,8 @@ char debugStr[100];
 int main()
 {
 	uint8_t i;
+
+	wdt_enable(WDTO_30MS);
 
 	PORTA = 0x00;
 	PORTC = 0x00;
@@ -49,7 +52,8 @@ int main()
 	sei();
 
 	print("\nEntering the main loop\n");
-	while (1);
+	while (1)
+		wdt_reset();
 
 	return 0;
 }

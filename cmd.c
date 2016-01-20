@@ -105,6 +105,9 @@ void runCmd(char code[])
 			setDuty();
 		}
 		break;
+	case 'R':		// Reboot
+		while (1);
+		break;
 	default:
 		sprintf(buf, "Unrecognised code:%s\n", code);
 		print(buf);
