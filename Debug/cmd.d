@@ -1,4 +1,4 @@
-cmd.d: ../cmd.c ../usart.h ../cmd.h ../eeprom.h
+cmd.o: ../cmd.c ../usart.h ../cmd.h ../eeprom.h
 
 ../usart.h:
 

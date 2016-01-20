@@ -1,4 +1,4 @@
-it.d: ../it.c ../cmd.h ../eeprom.h ../it.h ../usart.h
+it.o: ../it.c ../cmd.h ../eeprom.h ../it.h ../usart.h
 
 ../cmd.h:
 

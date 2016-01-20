@@ -47,6 +47,7 @@ int main()
 
 	sei();
 
+	print("\nEntering the main loop\n");
 	while (1);
 
 	return 0;
