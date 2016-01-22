@@ -1,3 +1,8 @@
+#include <stdio.h>
+
+
+void initUSART();
 void sendUSART(unsigned char data);
 unsigned char receiveUSART();
-void print(char *s);
+
+char myfputc(char ch, FILE *f);

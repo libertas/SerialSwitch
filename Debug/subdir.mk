@@ -8,6 +8,7 @@ C_SRCS += \
 ../eeprom.c \
 ../it.c \
 ../main.c \
+../timer.c \
 ../usart.c 
 
 OBJS += \
@@ -15,6 +16,7 @@ OBJS += \
 ./eeprom.o \
 ./it.o \
 ./main.o \
+./timer.o \
 ./usart.o 
 
 C_DEPS += \
@@ -22,6 +24,7 @@ C_DEPS += \
 ./eeprom.d \
 ./it.d \
 ./main.d \
+./timer.d \
 ./usart.d 
 
 

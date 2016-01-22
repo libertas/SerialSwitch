@@ -1,6 +1,5 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
-#include <stdint.h>
 
 #include "cmd.h"
 #include "eeprom.h"
@@ -36,8 +35,8 @@ ISR(TIMER0_OVF_vect)
 						break;
 					}
 				}
-				print("Auto running command:");
-				print(cmd);
+				printf("Auto running command:");
+				printf(cmd);
 				runCmd(cmd);
 				seconds = 0;
 			}
@@ -93,37 +92,15 @@ ISR(USART_RXC_vect)
 	}
 
 	if (codeUSART[0]) {
-		print("\nReceived:\n");
+		printf("\nReceived:\n");
 		for (i = 0; i < MAXCMDLEN; i++) {
 			sendUSART(codeUSART[i]);
 			if (codeUSART[i] == '\0')
 				break;
 		}
-		print("\n");
+		printf("\n");
 	}
 
 	runCmd(codeUSART);
 }
 
-void initUSART()
-{
-	UCSRA |= (1 << U2X);
-	UBRRH = 0;
-	UBRRL = 207;		// 9600Hz on 16MHz F_CPU
-	UCSRB = (1 << RXEN) | (1 << TXEN) | (1 << RXCIE);
-	UCSRC = (1 << URSEL) | (3 << UCSZ0);
-}
-
-void initTimer0()
-{
-	TCCR0 = (1 << CS02) | (1 << CS00);	// CLKio / 1024
-	TCNT0 = 0;
-	TIMSK |= _BV(TOIE0);
-}
-
-void initTimer2()
-{
-	TCCR2 = (1 << CS22) | (1 << CS21) | (1 << CS20);	// CLKio / 1024
-	TCNT2 = 0;
-	TIMSK |= _BV(TOIE2);
-}

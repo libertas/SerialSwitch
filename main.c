@@ -4,10 +4,12 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <avr/wdt.h>
+#include <stdio.h>
 
 #include "cmd.h"
 #include "eeprom.h"
 #include "it.h"
+#include "timer.h"
 #include "usart.h"
 
 
@@ -16,9 +18,6 @@ int main()
 	uint8_t i;
 
 	wdt_enable(WDTO_60MS);
-
-	PORTA = 0x00;
-	PORTC = 0x00;
 
 	for (i = 0; i < 8; i++) {
 		PORTA = PORTA >> 1;
@@ -47,7 +46,7 @@ int main()
 
 	sei();
 
-	print("\nEntering the main loop\n");
+	printf("\nEntering the main loop\n");
 	while (1) {
 		wdt_reset();
 	}

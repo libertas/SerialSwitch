@@ -66,12 +66,12 @@ void runCmd(char code[])
 		} else if (code[1] == 'R') {
 			if (sscanf(code + 2, "%d", &addr) == 1) {
 				sprintf(buf, "%d.%x\n", addr, readEEPROM(addr));
-				print(buf);
+				printf(buf);
 			} else {
 				for (i = 0; i < EEPROM_SIZE; i++) {
 					sprintf(buf, "%d.%x\n", i,
 						readEEPROM(i));
-					print(buf);
+					printf(buf);
 				}
 			}
 		} else
@@ -86,7 +86,7 @@ void runCmd(char code[])
 			}
 			writeEEPROM(stackTail--, '\n');
 		} else {
-			print("Wrong code!\n");
+			printf("Wrong code!\n");
 			return;
 		}
 		break;
@@ -110,17 +110,17 @@ void runCmd(char code[])
 		}
 		break;
 	case 'R':		// Reboot
-		print("REBOOTING\n");
+		printf("REBOOTING\n");
 		wdt_enable(WDTO_15MS);
 		while (1);
 		break;
 	case 'F':		// Print CPU frequency
 		sprintf(buf, "F_CPU: %ld Hz\n", F_CPU);
-		print(buf);
+		printf(buf);
 		break;
 	default:
 		sprintf(buf, "Unrecognized code:%s\n", code);
-		print(buf);
+		printf(buf);
 		break;
 	}
 }
