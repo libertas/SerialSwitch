@@ -1,5 +1,4 @@
 // Running on an Atmega 16a
-// 8 MHz
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -10,9 +9,6 @@
 #include "eeprom.h"
 #include "it.h"
 #include "usart.h"
-
-
-char debugStr[100];
 
 
 int main()
@@ -52,8 +48,9 @@ int main()
 	sei();
 
 	print("\nEntering the main loop\n");
-	while (1)
+	while (1) {
 		wdt_reset();
+	}
 
 	return 0;
 }

@@ -107,9 +107,9 @@ ISR(USART_RXC_vect)
 
 void initUSART()
 {
-	// UCSRA |= (1 << U2X);
+	UCSRA |= (1 << U2X);
 	UBRRH = 0;
-	UBRRL = 52;		// 9600Hz on 8MHz F_CPU
+	UBRRL = 207;		// 9600Hz on 16MHz F_CPU
 	UCSRB = (1 << RXEN) | (1 << TXEN) | (1 << RXCIE);
 	UCSRC = (1 << URSEL) | (3 << UCSZ0);
 }
