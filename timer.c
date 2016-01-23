@@ -1,7 +1,7 @@
 #include <avr/io.h>
 
 
-unsigned long g_seconds = 0;
+uint32_t g_seconds = 0;
 
 void initTimer0()
 {
