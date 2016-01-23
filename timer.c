@@ -1,6 +1,8 @@
 #include <avr/io.h>
 
 
+unsigned long g_seconds = 0;
+
 void initTimer0()
 {
 	TCCR0 = (1 << CS02) | (1 << CS00);	// CLKio / 1024

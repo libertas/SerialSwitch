@@ -17,6 +17,8 @@ int main()
 {
 	uint8_t i;
 
+	cli();
+
 	wdt_enable(WDTO_60MS);
 
 	for (i = 0; i < 8; i++) {

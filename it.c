@@ -4,6 +4,7 @@
 #include "cmd.h"
 #include "eeprom.h"
 #include "it.h"
+#include "timer.h"
 #include "usart.h"
 
 uint16_t m[16];
@@ -19,6 +20,8 @@ ISR(TIMER0_OVF_vect)
 
 	t++;
 	if (t > F_CPU / 256 / 1024) {
+		g_seconds++;
+
 		t = 0;
 		seconds++;
 		time =
@@ -35,6 +38,7 @@ ISR(TIMER0_OVF_vect)
 						break;
 					}
 				}
+				printf("time:%ld\n", g_seconds);
 				printf("Auto running command:");
 				printf(cmd);
 				runCmd(cmd);
