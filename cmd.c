@@ -3,9 +3,10 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "usart.h"
 #include "cmd.h"
 #include "eeprom.h"
+#include "usart.h"
+#include "timer.h"
 
 char buf[100];
 
@@ -117,6 +118,9 @@ void runCmd(char code[])
 	case 'F':		// Print CPU frequency
 		sprintf(buf, "F_CPU: %ld Hz\n", F_CPU);
 		printf(buf);
+		break;
+	case 'S':
+		printf("Time:%lds\n", g_seconds);
 		break;
 	default:
 		sprintf(buf, "Unrecognized code:%s\n", code);
